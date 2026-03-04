@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wearehouse_new_arsitecture_admin/data/datasource/admin_about_remote_datasource.dart';
 import 'package:wearehouse_new_arsitecture_admin/data/datasource/admin_auth_local_datasource.dart';
 import 'package:wearehouse_new_arsitecture_admin/data/datasource/admin_auth_remote_datasource.dart';
+import 'package:wearehouse_new_arsitecture_admin/data/datasource/admin_chat_remote_datasource.dart';
 import 'package:wearehouse_new_arsitecture_admin/data/datasource/admin_product_remote_datasource.dart';
 import 'package:wearehouse_new_arsitecture_admin/data/datasource/admin_request_remote_datasource.dart';
 import 'package:wearehouse_new_arsitecture_admin/data/datasource/dmin_product_request_remote_datasource.dart';
 import 'package:wearehouse_new_arsitecture_admin/data/datasource/stock_remote_datasource.dart';
+import 'package:wearehouse_new_arsitecture_admin/presentation/bloc/admin_about/admin_about_bloc.dart';
+import 'package:wearehouse_new_arsitecture_admin/presentation/bloc/admin_chat/admin_chat_bloc.dart';
 import 'package:wearehouse_new_arsitecture_admin/presentation/bloc/admin_login/admin_login_bloc.dart';
 import 'package:wearehouse_new_arsitecture_admin/presentation/bloc/admin_logout/admin_logout_bloc.dart';
 import 'package:wearehouse_new_arsitecture_admin/presentation/bloc/admin_product/admin_product_bloc.dart';
 import 'package:wearehouse_new_arsitecture_admin/presentation/bloc/admin_product_request/admin_product_request_bloc.dart';
 import 'package:wearehouse_new_arsitecture_admin/presentation/bloc/admin_request/admin_request_bloc.dart';
 import 'package:wearehouse_new_arsitecture_admin/presentation/bloc/stock/stock_bloc.dart';
+import 'package:wearehouse_new_arsitecture_admin/presentation/pages/admin_about_list_page.dart';
+import 'package:wearehouse_new_arsitecture_admin/presentation/pages/admin_chat_rooms_page.dart';
 import 'package:wearehouse_new_arsitecture_admin/presentation/pages/admin_product_request_list_page.dart';
 import 'package:wearehouse_new_arsitecture_admin/presentation/pages/admin_request_list_page.dart';
 import 'package:wearehouse_new_arsitecture_admin/presentation/pages/splash_page.dart';
@@ -57,7 +63,15 @@ BlocProvider(
 BlocProvider(
   create: (_) => AdminProductRequestBloc(AdminProductRequestRemoteDatasource()),
   child: const AdminProductRequestListPage(),
-);
+),
+BlocProvider(
+  create: (_) => AdminAboutBloc(AdminAboutRemoteDatasource()),
+  child: const AdminAboutListPage(),
+),
+BlocProvider(
+  create: (_) => AdminChatBloc(AdminChatRemoteDatasource()),
+  child: AdminChatRoomsPage(myUserId: /* ambil dari auth */ 1),
+),
 
       ],
       child: MaterialApp(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wearehouse_new_arsitecture_admin/presentation/bloc/admin_about/admin_about_bloc.dart';
-import 'package:wearehouse_new_arsitecture_admin/presentation/pages/admin_about_detail_page.dart';
-import 'package:wearehouse_new_arsitecture_admin/presentation/pages/admin_about_form_page.dart';
+import 'admin_about_form_page.dart';
+import 'admin_about_detail_page.dart';
 
 class AdminAboutListPage extends StatefulWidget {
   const AdminAboutListPage({super.key});
@@ -62,7 +62,8 @@ class _AdminAboutListPageState extends State<AdminAboutListPage> {
           return state.maybeWhen(
             loading: () => const Center(child: CircularProgressIndicator()),
             listLoaded: (items) {
-              if (items.isEmpty) return const Center(child: Text('Belum ada About'));
+              if (items.isEmpty)
+                return const Center(child: Text('Belum ada About'));
 
               return RefreshIndicator(
                 onRefresh: () async => _reload(),
@@ -77,7 +78,8 @@ class _AdminAboutListPageState extends State<AdminAboutListPage> {
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => AdminAboutDetailPage(id: about.id ?? 0),
+                          builder: (_) =>
+                              AdminAboutDetailPage(id: about.id ?? 0),
                         ),
                       ),
                       child: Container(
@@ -95,9 +97,14 @@ class _AdminAboutListPageState extends State<AdminAboutListPage> {
                                 width: 56,
                                 height: 56,
                                 color: Colors.grey.shade200,
-                                child: (about.imageUrl == null || about.imageUrl!.isEmpty)
+                                child:
+                                    (about.imageUrl == null ||
+                                        about.imageUrl!.isEmpty)
                                     ? const Icon(Icons.image_not_supported)
-                                    : Image.network(about.imageUrl!, fit: BoxFit.cover),
+                                    : Image.network(
+                                        about.imageUrl!,
+                                        fit: BoxFit.cover,
+                                      ),
                               ),
                             ),
                             const SizedBox(width: 12),
@@ -107,14 +114,18 @@ class _AdminAboutListPageState extends State<AdminAboutListPage> {
                                 children: [
                                   Text(
                                     about.safeTitle,
-                                    style: const TextStyle(fontWeight: FontWeight.w900),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                    ),
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
                                     about.safeContent,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(color: Color(0xFF7B8191)),
+                                    style: const TextStyle(
+                                      color: Color(0xFF7B8191),
+                                    ),
                                   ),
                                 ],
                               ),
