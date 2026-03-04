@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -106,7 +105,7 @@ class _AdminUserListPageState extends State<AdminUserListPage> {
 
                     final u = items[i];
                     return _userCard(
-                      u,
+                      u as AdminUserModel,
                       onTap: () async {
                         if (u.id == null) return;
                         final res = await Navigator.push<bool>(

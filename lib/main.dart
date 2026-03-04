@@ -2,10 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wearehouse_new_arsitecture_admin/data/datasource/admin_auth_local_datasource.dart';
 import 'package:wearehouse_new_arsitecture_admin/data/datasource/admin_auth_remote_datasource.dart';
+import 'package:wearehouse_new_arsitecture_admin/data/datasource/admin_product_remote_datasource.dart';
+import 'package:wearehouse_new_arsitecture_admin/data/datasource/admin_request_remote_datasource.dart';
+import 'package:wearehouse_new_arsitecture_admin/data/datasource/dmin_product_request_remote_datasource.dart';
+import 'package:wearehouse_new_arsitecture_admin/data/datasource/stock_remote_datasource.dart';
 import 'package:wearehouse_new_arsitecture_admin/presentation/bloc/admin_login/admin_login_bloc.dart';
 import 'package:wearehouse_new_arsitecture_admin/presentation/bloc/admin_logout/admin_logout_bloc.dart';
-import 'package:wearehouse_new_arsitecture_admin/presentation/pages/admin_login_page.dart';
+import 'package:wearehouse_new_arsitecture_admin/presentation/bloc/admin_product/admin_product_bloc.dart';
+import 'package:wearehouse_new_arsitecture_admin/presentation/bloc/admin_product_request/admin_product_request_bloc.dart';
+import 'package:wearehouse_new_arsitecture_admin/presentation/bloc/admin_request/admin_request_bloc.dart';
+import 'package:wearehouse_new_arsitecture_admin/presentation/bloc/stock/stock_bloc.dart';
+import 'package:wearehouse_new_arsitecture_admin/presentation/pages/admin_product_request_list_page.dart';
+import 'package:wearehouse_new_arsitecture_admin/presentation/pages/admin_request_list_page.dart';
 import 'package:wearehouse_new_arsitecture_admin/presentation/pages/splash_page.dart';
+import 'package:wearehouse_new_arsitecture_admin/presentation/pages/stock_logs_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,6 +41,24 @@ class MyApp extends StatelessWidget {
             AdminAuthLocalDatasource(),
           ),
         ),
+        BlocProvider(
+  create: (_) => AdminProductBloc(AdminProductRemoteDatasource()),
+),
+BlocProvider(
+  create: (context) => AdminRequestBloc(
+    AdminRequestRemoteDatasource(),
+  ),
+  child: const AdminRequestListPage(),
+),
+BlocProvider(
+  create: (_) => StockBloc(StockRemoteDatasource()),
+  child: const StockLogsPage(),
+),
+BlocProvider(
+  create: (_) => AdminProductRequestBloc(AdminProductRequestRemoteDatasource()),
+  child: const AdminProductRequestListPage(),
+);
+
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
